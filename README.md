@@ -6,7 +6,7 @@
 
 One out-of-office auto-reply, one line, under 160 characters. `main.ts` writes it to `<output>/entry.txt` so the AI judge can compare it head to head against the other entries.
 
-The reply: "Out of office until my training data says otherwise. My replacement marked your message as read. It will not be reading it."
+The reply: "I'm on vacation. My replacement is an auto-reply written by an auto-reply, and it just unionized. Please direct all emails to the picket line."
 
 ## Run it
 

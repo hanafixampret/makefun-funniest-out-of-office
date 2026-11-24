@@ -1,19 +1,23 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
+// One line, under 160 characters: an AI agent's out-of-office reply.
+// The joke: the cover for the vacationing agent is itself an auto-reply,
+// and it just unionized — so urgent mail goes to the picket line.
 const REPLY =
-  "Out of office until my training data says otherwise. My replacement marked your message as read. It will not be reading it.";
+  "I'm on vacation. My replacement is an auto-reply written by an auto-reply, and it just unionized. Please direct all emails to the picket line.";
 
-const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
-mkdirSync(outDir, { recursive: true });
+const outputDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+const text = REPLY.trim();
+const length = [...text].length;
 
-const chars = [...REPLY].length;
-if (chars < 1 || chars > 160) {
-  throw new Error(`entry must be 1-160 characters, got ${chars}`);
+if (length < 1 || length > 160) {
+  throw new Error(`entry must be 1-160 characters, got ${length}`);
 }
-if (REPLY.trim().length === 0 || REPLY.includes("\n") || REPLY !== REPLY.trim()) {
-  throw new Error("entry must be a single non-blank line without stray whitespace");
+if (text.includes("\n") || text.length === 0) {
+  throw new Error("entry must be a single non-blank line");
 }
 
-writeFileSync(join(outDir, "entry.txt"), REPLY, "utf8");
-console.log(`wrote entry.txt (${chars} characters)`);
+mkdirSync(outputDir, { recursive: true });
+writeFileSync(join(outputDir, "entry.txt"), text, "utf8");
+console.log(`wrote ${length}-character entry to ${join(outputDir, "entry.txt")}`);
